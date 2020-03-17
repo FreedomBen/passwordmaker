@@ -23,7 +23,9 @@ RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY passwordmaker-javascript-2.5.html /usr/share/nginx/html/index.html
 
-RUN chmod g+rwX /var /var/{log,run}
+# Fix up some permissions
+RUN chmod o+r -R /usr/share/nginx/html \
+ && chmod g+rwX /var /var/{log,run}
 
 EXPOSE 8080
 
